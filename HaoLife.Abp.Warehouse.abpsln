@@ -1,0 +1,7 @@
+{
+  "modules": {
+    "HaoLife.Abp.Warehouse": {
+      "path": "HaoLife.Abp.Warehouse.abpmdl"
+    }
+  }
+}

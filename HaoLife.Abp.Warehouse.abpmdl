@@ -1,0 +1,111 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {},
+      "host": {}
+    }
+  },
+  "packages": {
+    "HaoLife.Abp.Warehouse.Domain.Shared": {
+      "path": "src/HaoLife.Abp.Warehouse.Domain.Shared/HaoLife.Abp.Warehouse.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "HaoLife.Abp.Warehouse.Domain": {
+      "path": "src/HaoLife.Abp.Warehouse.Domain/HaoLife.Abp.Warehouse.Domain.abppkg",
+      "folder": "src"
+    },
+    "HaoLife.Abp.Warehouse.Application.Contracts": {
+      "path": "src/HaoLife.Abp.Warehouse.Application.Contracts/HaoLife.Abp.Warehouse.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "HaoLife.Abp.Warehouse.Application": {
+      "path": "src/HaoLife.Abp.Warehouse.Application/HaoLife.Abp.Warehouse.Application.abppkg",
+      "folder": "src"
+    },
+    "HaoLife.Abp.Warehouse.EntityFrameworkCore": {
+      "path": "src/HaoLife.Abp.Warehouse.EntityFrameworkCore/HaoLife.Abp.Warehouse.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "HaoLife.Abp.Warehouse.MongoDB": {
+      "path": "src/HaoLife.Abp.Warehouse.MongoDB/HaoLife.Abp.Warehouse.MongoDB.abppkg",
+      "folder": "src"
+    },
+    "HaoLife.Abp.Warehouse.HttpApi": {
+      "path": "src/HaoLife.Abp.Warehouse.HttpApi/HaoLife.Abp.Warehouse.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "HaoLife.Abp.Warehouse.HttpApi.Client": {
+      "path": "src/HaoLife.Abp.Warehouse.HttpApi.Client/HaoLife.Abp.Warehouse.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "HaoLife.Abp.Warehouse.TestBase": {
+      "path": "test/HaoLife.Abp.Warehouse.TestBase/HaoLife.Abp.Warehouse.TestBase.abppkg",
+      "folder": "test"
+    },
+    "HaoLife.Abp.Warehouse.EntityFrameworkCore.Tests": {
+      "path": "test/HaoLife.Abp.Warehouse.EntityFrameworkCore.Tests/HaoLife.Abp.Warehouse.EntityFrameworkCore.Tests.abppkg",
+      "folder": "test"
+    },
+    "HaoLife.Abp.Warehouse.MongoDB.Tests": {
+      "path": "test/HaoLife.Abp.Warehouse.MongoDB.Tests/HaoLife.Abp.Warehouse.MongoDB.Tests.abppkg",
+      "folder": "test"
+    },
+    "HaoLife.Abp.Warehouse.Domain.Tests": {
+      "path": "test/HaoLife.Abp.Warehouse.Domain.Tests/HaoLife.Abp.Warehouse.Domain.Tests.abppkg",
+      "folder": "test"
+    },
+    "HaoLife.Abp.Warehouse.Application.Tests": {
+      "path": "test/HaoLife.Abp.Warehouse.Application.Tests/HaoLife.Abp.Warehouse.Application.Tests.abppkg",
+      "folder": "test"
+    },
+    "HaoLife.Abp.Warehouse.HttpApi.Host": {
+      "path": "host/HaoLife.Abp.Warehouse.HttpApi.Host/HaoLife.Abp.Warehouse.HttpApi.Host.abppkg",
+      "folder": "host"
+    },
+    "HaoLife.Abp.Warehouse.Web": {
+      "path": "src/HaoLife.Abp.Warehouse.Web/HaoLife.Abp.Warehouse.Web.abppkg",
+      "folder": "src"
+    },
+    "HaoLife.Abp.Warehouse.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/HaoLife.Abp.Warehouse.HttpApi.Client.ConsoleTestApp/HaoLife.Abp.Warehouse.HttpApi.Client.ConsoleTestApp.abppkg",
+      "folder": "test"
+    },
+    "HaoLife.Abp.Warehouse.Web.Host": {
+      "path": "host/HaoLife.Abp.Warehouse.Web.Host/HaoLife.Abp.Warehouse.Web.Host.abppkg",
+      "folder": "host"
+    },
+    "HaoLife.Abp.Warehouse.AuthServer": {
+      "path": "host/HaoLife.Abp.Warehouse.AuthServer/HaoLife.Abp.Warehouse.AuthServer.abppkg",
+      "folder": "host"
+    },
+    "HaoLife.Abp.Warehouse.Host.Shared": {
+      "path": "host/HaoLife.Abp.Warehouse.Host.Shared/HaoLife.Abp.Warehouse.Host.Shared.abppkg",
+      "folder": "host"
+    },
+    "HaoLife.Abp.Warehouse.Web.Unified": {
+      "path": "host/HaoLife.Abp.Warehouse.Web.Unified/HaoLife.Abp.Warehouse.Web.Unified.abppkg",
+      "folder": "host"
+    },
+    "HaoLife.Abp.Warehouse.Blazor": {
+      "path": "src/HaoLife.Abp.Warehouse.Blazor/HaoLife.Abp.Warehouse.Blazor.abppkg",
+      "folder": "src"
+    },
+    "HaoLife.Abp.Warehouse.Blazor.Host": {
+      "path": "host/HaoLife.Abp.Warehouse.Blazor.Host/HaoLife.Abp.Warehouse.Blazor.Host.abppkg",
+      "folder": "host"
+    },
+    "HaoLife.Abp.Warehouse.Blazor.Server": {
+      "path": "src/HaoLife.Abp.Warehouse.Blazor.Server/HaoLife.Abp.Warehouse.Blazor.Server.abppkg",
+      "folder": "src"
+    },
+    "HaoLife.Abp.Warehouse.Blazor.WebAssembly": {
+      "path": "src/HaoLife.Abp.Warehouse.Blazor.WebAssembly/HaoLife.Abp.Warehouse.Blazor.WebAssembly.abppkg",
+      "folder": "src"
+    },
+    "HaoLife.Abp.Warehouse.Blazor.Server.Host": {
+      "path": "host/HaoLife.Abp.Warehouse.Blazor.Server.Host/HaoLife.Abp.Warehouse.Blazor.Server.Host.abppkg",
+      "folder": "host"
+    }
+  }
+}
