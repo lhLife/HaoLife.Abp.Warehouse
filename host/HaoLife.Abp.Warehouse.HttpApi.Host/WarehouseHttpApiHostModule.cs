@@ -24,6 +24,7 @@ using Volo.Abp.Caching;
 using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.SqlServer;
+using Volo.Abp.EntityFrameworkCore.MySQL;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.MultiTenancy;
@@ -33,6 +34,20 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.Abp.VirtualFileSystem;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
+using Volo.Abp.Data;
+using System.Threading.Tasks;
+using Swashbuckle.AspNetCore.Filters;
+using Volo.Abp.GlobalFeatures;
+using Volo.Abp.Threading;
+using HaoLife.Abp.Warehouse.GlobalFeatures;
+using Microsoft.AspNetCore.RequestLocalization;
+using NUglify.Helpers;
+using Volo.Abp.Features;
+using YamlDotNet.Core.Tokens;
+using Volo.Abp.Settings;
+using Volo.Abp.Guids;
 
 namespace HaoLife.Abp.Warehouse;
 
@@ -44,6 +59,7 @@ namespace HaoLife.Abp.Warehouse;
     typeof(AbpAutofacModule),
     typeof(AbpCachingStackExchangeRedisModule),
     typeof(AbpEntityFrameworkCoreSqlServerModule),
+    typeof(AbpEntityFrameworkCoreMySQLModule),
     typeof(AbpAuditLoggingEntityFrameworkCoreModule),
     typeof(AbpPermissionManagementEntityFrameworkCoreModule),
     typeof(AbpSettingManagementEntityFrameworkCoreModule),
@@ -53,16 +69,52 @@ namespace HaoLife.Abp.Warehouse;
     )]
 public class WarehouseHttpApiHostModule : AbpModule
 {
+    private static readonly OneTimeRunner OneTimeRunner = new OneTimeRunner();
+    public override void PreConfigureServices(ServiceConfigurationContext context)
+    {
+        OneTimeRunner.Run(() =>
+        {
+            GlobalFeatureManager.Instance.Modules.Warehouse().EnableAll();
+            //GlobalFeatureManager.Instance.Modules.Warehouse().Disable<SupplierFeature>();
+        });
+    }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();
         var configuration = context.Services.GetConfiguration();
 
+        Configure<AbpSequentialGuidGeneratorOptions>(options =>
+        {
+            options.DefaultSequentialGuidType = SequentialGuidType.SequentialAsString;
+        });
+
         Configure<AbpDbContextOptions>(options =>
         {
             options.UseSqlServer();
+            //options.UseMySQL<WarehouseDbContext>();
+
+            options.Configure<WarehouseDbContext>(opts =>
+            {
+                opts.DbContextOptions.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                opts.UseMySQL();
+            });
+
         });
+
+        //Configure<AbpDbConnectionOptions>(options =>
+        //{
+        //    options.Databases.Configure("Default", db =>
+        //    {
+        //        db.MappedConnections.Add("AbpAuditLogging");
+        //        db.MappedConnections.Add("AbpPermissionManagement");
+        //        db.MappedConnections.Add("AbpSettingManagement");
+        //        db.MappedConnections.Add("AbpTenantManagement");
+        //    });
+        //});
+
+
+
 
         Configure<AbpMultiTenancyOptions>(options =>
         {
@@ -88,9 +140,12 @@ public class WarehouseHttpApiHostModule : AbpModule
             },
             options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo {Title = "Warehouse API", Version = "v1"});
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Warehouse API", Version = "v1" });
                 options.DocInclusionPredicate((docName, description) => true);
                 options.CustomSchemaIds(type => type.FullName);
+
+                options.OperationFilter<AddHeaderOperationFilter>("Accept-Language", "语言参数： zh-Hans,zh-CN,zh", false); // adds any string you like to the request headers - in this case, a correlation id
+
             });
 
         Configure<AbpLocalizationOptions>(options =>
@@ -115,6 +170,7 @@ public class WarehouseHttpApiHostModule : AbpModule
             options.Languages.Add(new LanguageInfo("de-DE", "de-DE", "Deutsch"));
             options.Languages.Add(new LanguageInfo("es", "es", "Español"));
             options.Languages.Add(new LanguageInfo("el", "el", "Ελληνικά"));
+
         });
 
         context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -155,6 +211,7 @@ public class WarehouseHttpApiHostModule : AbpModule
                     .AllowCredentials();
             });
         });
+
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -181,7 +238,21 @@ public class WarehouseHttpApiHostModule : AbpModule
         {
             app.UseMultiTenancy();
         }
+
+        //app.UseAbpRequestLocalization(options =>
+        //{
+        //    options.SetDefaultCulture("zh-Hans");
+        //    // clear 目的是清理 Microsoft.AspNetCore.Localization.CookieRequestCultureProvider 这个提供者
+        //    // 当cookie中有存储语言的缓存时，因为排序问题（AcceptLanguageHeaderRequestCultureProvider 在最后）
+        //    //所以设置语言会无效
+        //    options.RequestCultureProviders.Clear();
+        //    options.AddInitialRequestCultureProvider(new Microsoft.AspNetCore.Localization.AcceptLanguageHeaderRequestCultureProvider());
+
+        //    //或者配置 Abp.Localization.DefaultLanguage (配置文件 Settings:Abp.Localization.DefaultLanguage )
+
+        //});
         app.UseAbpRequestLocalization();
+
         app.UseAuthorization();
         app.UseSwagger();
         app.UseAbpSwaggerUI(options =>
@@ -195,5 +266,20 @@ public class WarehouseHttpApiHostModule : AbpModule
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();
+
+    }
+
+
+    public override async Task OnApplicationInitializationAsync(ApplicationInitializationContext context)
+    {
+        await base.OnApplicationInitializationAsync(context);
+
+
+        using (var scope = context.ServiceProvider.CreateScope())
+        {
+            await scope.ServiceProvider
+                .GetRequiredService<IDataSeeder>()
+                .SeedAsync();
+        }
     }
 }

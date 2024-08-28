@@ -10,4 +10,12 @@ namespace HaoLife.Abp.Warehouse;
 public class WarehouseDomainModule : AbpModule
 {
 
+    public override void ConfigureServices(ServiceConfigurationContext context)
+    {
+
+        //if (GlobalFeatureManager.Instance.IsEnabled<ReactionsFeature>())
+        //{
+
+        //}
+    }
 }

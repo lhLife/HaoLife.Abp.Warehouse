@@ -1,0 +1,70 @@
+@WebApplication1_HostAddress = https://localhost:44333
+###
+
+POST {{WebApplication1_HostAddress}}/api/Warehouse/StoreTool
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "架子",
+  "sort": 1,
+  "attrs": [
+    "货架号",
+    "层号",
+    "位号"
+  ]
+}
+
+###
+
+
+POST {{WebApplication1_HostAddress}}/api/Warehouse/CargoTypeSpec
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "颜色",
+  "sort": 1,
+  "values": [
+    "红",
+    "黄",
+    "蓝"
+  ]
+}
+
+###
+
+POST {{WebApplication1_HostAddress}}/api/Warehouse/Cargo
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "鞋子",
+  "images": "https://img10.360buyimg.com/n1/jfs/t1/244542/2/5227/69539/65e2fcddF5641f596/bc6b6cc79c6b262c.jpg",
+  "bn": "a123456",
+  "sn": "a123456",
+  "weight": 123,
+  "unit": "g",
+  "specs": [
+    {
+      "name": "颜色",
+      "value": "红"
+    }
+  ],
+  "isEnable": true,
+  "costPrice": 10
+}
+
+###
+
+POST {{WebApplication1_HostAddress}}/api/Warehouse/Stock
+Accept: application/json
+Content-Type: application/json
+
+{
+  "cargoId": "6fc7b5dc-3bb1-1384-9888-3a14aa6621c0",
+  "number": 10,
+  "storelocationId": "ecc41915-fb01-e85a-cbcd-3a14a002efa6",
+  "seriesNumber": "202408281705",
+  "batchNo": "m202408281705"
+}

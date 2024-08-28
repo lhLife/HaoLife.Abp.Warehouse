@@ -12,7 +12,7 @@ public class WarehouseHttpApiHostMigrationsDbContextFactory : IDesignTimeDbConte
         var configuration = BuildConfiguration();
 
         var builder = new DbContextOptionsBuilder<WarehouseHttpApiHostMigrationsDbContext>()
-            .UseSqlServer(configuration.GetConnectionString("Warehouse"));
+            .UseMySql(configuration.GetConnectionString("Warehouse"), ServerVersion.AutoDetect(configuration.GetConnectionString("Warehouse")));
 
         return new WarehouseHttpApiHostMigrationsDbContext(builder.Options);
     }

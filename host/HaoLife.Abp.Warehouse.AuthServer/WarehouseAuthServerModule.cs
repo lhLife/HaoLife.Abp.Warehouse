@@ -47,6 +47,7 @@ using Volo.Abp.Swashbuckle;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.Abp.UI.Navigation.Urls;
+using OpenIddict.Abstractions;
 
 namespace HaoLife.Abp.Warehouse;
 
@@ -93,6 +94,19 @@ public class WarehouseAuthServerModule : AbpModule
                 options.AddAudiences("Warehouse");
                 options.UseLocalServer();
                 options.UseAspNetCore();
+            });
+
+            builder.AddCore(options =>
+            {
+            });
+            builder.AddServer(options =>
+            {
+                options.AddEphemeralSigningKey();
+
+                options.SetAuthorizationCodeLifetime(TimeSpan.FromMinutes(30));
+                options.SetAccessTokenLifetime(TimeSpan.FromMinutes(30));
+                options.SetIdentityTokenLifetime(TimeSpan.FromMinutes(30));
+                options.SetRefreshTokenLifetime(TimeSpan.FromDays(14));
             });
         });
     }
@@ -143,8 +157,8 @@ public class WarehouseAuthServerModule : AbpModule
 
         Configure<AbpAuditingOptions>(options =>
         {
-                //options.IsEnabledForGetRequests = true;
-                options.ApplicationName = "AuthServer";
+            //options.IsEnabledForGetRequests = true;
+            options.ApplicationName = "AuthServer";
         });
 
         Configure<AppUrlOptions>(options =>

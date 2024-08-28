@@ -22,5 +22,6 @@ public class WarehouseDbContext : AbpDbContext<WarehouseDbContext>, IWarehouseDb
         base.OnModelCreating(builder);
 
         builder.ConfigureWarehouse();
+
     }
 }
