@@ -23,6 +23,7 @@ public class GlobalWarehouseFeatures : GlobalModuleFeatures
         AddFeature(new CargoTypeSpecFeature(this));
         AddFeature(new StorehouseFeature(this));
         AddFeature(new StoreToolFeature(this));
+        AddFeature(new ArrivedOrderFreature(this));
     }
     //simple
 

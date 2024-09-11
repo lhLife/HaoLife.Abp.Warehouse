@@ -53,28 +53,39 @@ public class WarehouseEntityFrameworkCoreModule : AbpModule
 
             if (GlobalFeatureManager.Instance.IsEnabled<DispatchOrderFeature>())
                 options.AddRepository<DispatchOrder, EfCoreDispatchOrderRepository>();
+
+
+
+            if (GlobalFeatureManager.Instance.IsEnabled<ArrivedOrderFreature>())
+                options.Entity<ArrivedOrder>(entity => entity.DefaultWithDetailsFunc = 
+                    (a) => a.Include(b => b.Items).ThenInclude(a => a.Picks));
         });
 
-        Configure<AbpEntityOptions>(options =>
-        {
-            //配置Include
-            //if (GlobalFeatureManager.Instance.IsEnabled<CargoTypeSpecFeature>())
-            //    options.Entity<CargoTypeSpec>(entity => entity.DefaultWithDetailsFunc = (a) => a.Include(b => b.Values));
+        //Configure<AbpEntityOptions>(options =>
+        //{
+        //    //配置Include
+        //    //if (GlobalFeatureManager.Instance.IsEnabled<CargoTypeSpecFeature>())
+        //    //    options.Entity<CargoTypeSpec>(entity => entity.DefaultWithDetailsFunc = (a) => a.Include(b => b.Values));
 
-            //if (GlobalFeatureManager.Instance.IsEnabled<StoreToolFeature>())
-            //    options.Entity<StoreTool>(entity => entity.DefaultWithDetailsFunc = (a) => a.Include(b => b.Attrs));
+        //    //if (GlobalFeatureManager.Instance.IsEnabled<StoreToolFeature>())
+        //    //    options.Entity<StoreTool>(entity => entity.DefaultWithDetailsFunc = (a) => a.Include(b => b.Attrs));
 
-            //if (GlobalFeatureManager.Instance.IsEnabled<ArrivedOrderFreature>())
-            //    options.Entity<ArrivedOrder>(entity => entity.DefaultWithDetailsFunc =
-            //        (a) => a.Include(b => b.Itmes).ThenInclude(c => c.Sorts));
+        //    //if (GlobalFeatureManager.Instance.IsEnabled<ArrivedOrderFreature>())
+        //    //    options.Entity<ArrivedOrder>(entity => entity.DefaultWithDetailsFunc =
+        //    //        (a) => a.Include(b => b.Itmes).ThenInclude(c => c.Sorts));
 
-            //if (GlobalFeatureManager.Instance.IsEnabled<StorehouseFeature>())
-            //{
-            //    //options.Entity<Storearea>(entity => entity.DefaultWithDetailsFunc = (a) => a.Include(b => b.Storehouse));
-            //    //options.Entity<Storelocation>(entity => entity.DefaultWithDetailsFunc =
-            //    //    (a) => a.Include(b => b.Storehouse).Include(b => b.Storearea));
-            //}
+        //    //if (GlobalFeatureManager.Instance.IsEnabled<StorehouseFeature>())
+        //    //{
+        //    //    //options.Entity<Storearea>(entity => entity.DefaultWithDetailsFunc = (a) => a.Include(b => b.Storehouse));
+        //    //    //options.Entity<Storelocation>(entity => entity.DefaultWithDetailsFunc =
+        //    //    //    (a) => a.Include(b => b.Storehouse).Include(b => b.Storearea));
+        //    //}
 
-        });
+        //    if (GlobalFeatureManager.Instance.IsEnabled<ArrivedOrderFreature>())
+        //        options.Entity<ArrivedOrder>(entity => entity.DefaultWithDetailsFunc =
+        //            (a) => a.Include(b => b.Items).ThenInclude(a => a.Picks));
+
+        //});
+
     }
 }

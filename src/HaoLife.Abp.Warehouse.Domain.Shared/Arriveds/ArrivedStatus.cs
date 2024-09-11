@@ -28,7 +28,7 @@ public enum ArrivedStatus
     /// 待分拣
     /// </summary>
     [Description("待分拣")]
-    UnSorted = 2,
+    UnPick = 2,
 
     /// <summary>
     /// 待上架

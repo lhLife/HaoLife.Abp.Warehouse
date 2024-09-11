@@ -1,9 +1,16 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using HaoLife.Abp.Warehouse.Arriveds;
+using HaoLife.Abp.Warehouse.GlobalFeatures;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore.Sqlite;
+using Volo.Abp.GlobalFeatures;
 using Volo.Abp.Modularity;
 using Volo.Abp.Uow;
 
@@ -24,11 +31,18 @@ public class WarehouseEntityFrameworkCoreTestModule : AbpModule
 
         Configure<AbpDbContextOptions>(options =>
         {
-            options.Configure(abpDbContextConfigurationContext =>
+            //options.Configure(abpDbContextConfigurationContext =>
+            //{
+            //    abpDbContextConfigurationContext.DbContextOptions.UseSqlite(sqliteConnection);
+            //});
+
+            options.Configure<WarehouseDbContext>(opts =>
             {
-                abpDbContextConfigurationContext.DbContextOptions.UseSqlite(sqliteConnection);
+                opts.DbContextOptions.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                opts.UseSqlite(sqliteConnection);
             });
         });
+
     }
 
     private static SqliteConnection CreateDatabaseAndGetConnection()
@@ -42,4 +56,5 @@ public class WarehouseEntityFrameworkCoreTestModule : AbpModule
 
         return connection;
     }
+
 }

@@ -338,9 +338,10 @@ public static class WarehouseDbContextModelCreatingExtensions
                 b.HasKey(q => q.Id);
                 b.Property(q => q.EntityVersion).IsRequired().HasComment("实体版本");
                 b.Property(q => q.ExpectArrivedDate).IsRequired(false).HasComment("预计到达时间");
-                b.Property(q => q.BatchNo).IsRequired().HasComment("批次号");
+                b.Property(q => q.OrderNo).IsRequired().HasMaxLength(ArrivedOrderConsts.MaxOrderNoLength).HasComment("到货单号");
+                b.Property(q => q.BatchNo).IsRequired().HasMaxLength(ArrivedOrderConsts.MaxBatchNoLength).HasComment("批次号");
                 b.Property(q => q.Contacts).IsRequired(false).HasMaxLength(ArrivedOrderConsts.MaxContactsLength).HasComment("联系人");
-                b.Property(q => q.ContactsPhone).IsRequired().HasMaxLength(ArrivedOrderConsts.MaxContactsPhoneLength).HasComment("联系人电话");
+                b.Property(q => q.ContactsPhone).IsRequired(false).HasMaxLength(ArrivedOrderConsts.MaxContactsPhoneLength).HasComment("联系人电话");
                 b.Property(q => q.Memo).IsRequired(false).HasMaxLength(ArrivedOrderConsts.MaxMemoLength).HasComment("备注");
                 b.Property(q => q.ArrivedDate).IsRequired(false).HasComment("到达时间");
                 b.Property(q => q.UnloadTime).IsRequired(false).HasComment("卸货时间");
@@ -348,7 +349,7 @@ public static class WarehouseDbContextModelCreatingExtensions
                 b.Property(q => q.Status).IsRequired().HasComment("到货状态");
 
 
-                b.HasMany(a => a.Itmes).WithOne().HasForeignKey($"{nameof(ArrivedOrder)}Id");
+                b.HasMany(a => a.Items).WithOne().HasForeignKey($"{nameof(ArrivedOrder)}Id");
 
             });
 
@@ -369,21 +370,21 @@ public static class WarehouseDbContextModelCreatingExtensions
                 b.Property(q => q.SpecDesc).IsRequired(false).HasMaxLength(CargoConsts.MaxSpecDescLength).HasComment("规格描述");
                 b.Property(q => q.Number).IsRequired().HasComment("到货数量");
                 b.Property(q => q.CostPrice).IsRequired(false).HasComment("货物成本单价");
-                b.Property(q => q.SortNumber).IsRequired().HasComment("分拣数量");
+                b.Property(q => q.PickNumber).IsRequired().HasComment("分拣数量");
                 b.Property(q => q.StockedNumber).IsRequired().HasComment("已入库数");
 
                 b.Property(q => q.CargoId).IsRequired().HasComment("货物id");
 
                 //Relations
                 b.HasOne<Cargo>().WithMany().HasForeignKey(a => a.CargoId);
-                b.HasMany(a => a.Sorts).WithOne().HasForeignKey($"{nameof(ArrivedOrderItem)}Id");
+                b.HasMany(a => a.Picks).WithOne().HasForeignKey($"{nameof(ArrivedOrderItem)}Id");
 
             });
 
-            builder.Entity<ArrivedOrderSortItem>(b =>
+            builder.Entity<ArrivedOrderPickItem>(b =>
             {
                 //Configure table & schema name
-                b.ToTable(WarehouseDbProperties.DbTablePrefix + $"{nameof(ArrivedOrderSortItem)}s", WarehouseDbProperties.DbSchema
+                b.ToTable(WarehouseDbProperties.DbTablePrefix + $"{nameof(ArrivedOrderPickItem)}s", WarehouseDbProperties.DbSchema
                     , b => b.HasComment("到货单货物分拣明细"));
 
                 b.ConfigureByConvention();
@@ -396,6 +397,8 @@ public static class WarehouseDbContextModelCreatingExtensions
                 b.Property(q => q.Number).IsRequired().HasComment("分拣数量");
                 b.Property(q => q.StockNumber).IsRequired().HasComment("已入库数");
                 b.Property(q => q.IsStock).IsRequired().HasComment("是否同步库存");
+                b.Property(q => q.StorelocationId).IsRequired(false).HasComment("库位id");
+                b.Property(q => q.StorelocationCode).IsRequired(false).HasMaxLength(StorelocationConsts.MaxCodeLength).HasComment("库位编号");
 
             });
         }

@@ -11,8 +11,22 @@ namespace HaoLife.Abp.Warehouse.Arriveds;
 /// <summary>
 /// 到货单货物分拣明细
 /// </summary>
-public class ArrivedOrderSortItem : FullAuditedEntity<Guid>, IMultiTenant
+public class ArrivedOrderPickItem : FullAuditedEntity<Guid>, IMultiTenant
 {
+    protected ArrivedOrderPickItem()
+    {
+
+    }
+
+    public ArrivedOrderPickItem(Guid id, string? seriesNumber, int seq, int number
+        , Guid? tenantId = null)
+        : base(id)
+    {
+        this.TenantId = tenantId;
+        this.SeriesNumber = seriesNumber;
+        this.Seq = seq;
+        this.Number = number;
+    }
     /// <summary>
     /// 租户id
     /// </summary>
@@ -21,7 +35,7 @@ public class ArrivedOrderSortItem : FullAuditedEntity<Guid>, IMultiTenant
     /// <summary>
     /// 库存序列号
     /// </summary>
-    public string SeriesNumber { get; set; }
+    public string? SeriesNumber { get; set; }
 
     /// <summary>
     /// 序号
@@ -43,6 +57,25 @@ public class ArrivedOrderSortItem : FullAuditedEntity<Guid>, IMultiTenant
     /// 是否入库
     /// </summary>
     public bool IsStock { get; set; }
+
+    /// <summary>
+    /// 库位id
+    /// </summary>
+    public Guid? StorelocationId { get; set; }
+
+    /// <summary>
+    /// 库位编号
+    /// </summary>
+    public string? StorelocationCode { get; set; }
+
+
+    public void SetStorelocation(Guid storelocationId, string storelocationCode)
+    {
+        this.StorelocationId = storelocationId;
+        this.StorelocationCode = storelocationCode;
+        this.IsStock = true;
+        this.StockNumber = this.Number;
+    }
 
 
 

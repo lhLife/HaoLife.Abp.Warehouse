@@ -15,6 +15,25 @@ namespace HaoLife.Abp.Warehouse.Arriveds;
 /// </summary>
 public class ArrivedOrderItem : FullAuditedEntity<Guid>, IMultiTenant
 {
+    protected ArrivedOrderItem()
+    {
+
+    }
+
+    public ArrivedOrderItem(Guid id, Guid cargoId, string name, string bn, string sn, string? specDesc, int number, decimal? costPrice = null
+         , Guid? tenantId = null)
+        : base(id)
+    {
+        this.TenantId = tenantId;
+        this.CargoId = cargoId;
+        this.Name = name;
+        this.Bn = bn;
+        this.Sn = sn;
+        this.SpecDesc = specDesc;
+        this.Number = number;
+        this.CostPrice = costPrice;
+    }
+
     /// <summary>
     /// 租户id
     /// </summary>
@@ -29,22 +48,22 @@ public class ArrivedOrderItem : FullAuditedEntity<Guid>, IMultiTenant
     /// <summary>
     /// 货物名称
     /// </summary>
-    public required string Name { get; set; }
+    public string Name { get; set; }
 
     /// <summary>
     /// 货物条码 - BarCode
     /// </summary>
-    public required string Bn { get; set; }
+    public string Bn { get; set; }
 
     /// <summary>
     /// 货物编码 - SerialNo
     /// </summary>
-    public required string Sn { get; set; }
+    public string Sn { get; set; }
 
     /// <summary>
     /// 规格描述 - 颜色:红,长:42,条纹:蓝金
     /// </summary>
-    public string SpecDesc { get; set; }
+    public string? SpecDesc { get; set; }
 
 
     /// <summary>
@@ -62,7 +81,7 @@ public class ArrivedOrderItem : FullAuditedEntity<Guid>, IMultiTenant
     /// <summary>
     /// 分拣数量
     /// </summary>
-    public int SortNumber { get; set; }
+    public int PickNumber { get; set; }
 
     /// <summary>
     /// 已入库数
@@ -72,7 +91,28 @@ public class ArrivedOrderItem : FullAuditedEntity<Guid>, IMultiTenant
     /// <summary>
     /// 分拣记录
     /// </summary>
-    public List<ArrivedOrderSortItem> Sorts { get; set; }
+    public List<ArrivedOrderPickItem> Picks { get; set; } = new List<ArrivedOrderPickItem>();
+
+
+
+    public virtual void AddPick(Guid id, string? seriesNumber, int number)
+    {
+        var seq = this.Picks.LastOrDefault()?.Seq ?? 1;
+        this.Picks.Add(new ArrivedOrderPickItem(id, seriesNumber, seq, number, this.TenantId));
+
+        this.PickNumber = this.Picks.Sum(a => a.Number);
+    }
+
+
+    public virtual void UpdateStockedNumber()
+    {
+        this.StockedNumber = this.Picks.Where(a => a.IsStock).Sum(a => a.StockNumber);
+    }
+
+    public virtual bool IsAllItemStock()
+    {
+        return this.Picks.Any(a => !a.IsStock);
+    }
 }
 
 

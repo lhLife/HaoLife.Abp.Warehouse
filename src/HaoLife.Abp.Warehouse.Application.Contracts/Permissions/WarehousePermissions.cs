@@ -58,6 +58,24 @@ public class WarehousePermissions
         public const string Update = Default + ".Update";
         public const string Delete = Default + ".Delete";
     }
+
+    public static class Stock
+    {
+        public const string Default = GroupName + ".Stock";
+        public const string Add = Default + ".Add";
+        public const string Deduct = Default + ".Deduct";
+        public const string Freeze = Default + ".Freeze";
+        public const string UnFreeze = Default + ".UnFreeze";
+    }
+
+
+    public static class ArrivedOrder
+    {
+        public const string Default = GroupName + ".ArrivedOrder";
+        public const string Create = Default + ".Create";
+        public const string Update = Default + ".Update";
+        public const string Delete = Default + ".Delete";
+    }
     public static string[] GetAll()
     {
         return ReflectionHelper.GetPublicConstantsRecursively(typeof(WarehousePermissions));

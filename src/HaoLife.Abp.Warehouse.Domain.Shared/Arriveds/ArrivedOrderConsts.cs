@@ -8,6 +8,8 @@ namespace HaoLife.Abp.Warehouse.Arriveds;
 
 public class ArrivedOrderConsts
 {
+    public static int MaxOrderNoLength { get; set; } = 32;
+    public static int MaxBatchNoLength { get; set; } = 32;
     public static int MaxContactsLength { get; set; } = 64;
     public static int MaxContactsPhoneLength { get; set; } = 11;
     //Memo

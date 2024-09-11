@@ -5,6 +5,7 @@ using Volo.Abp;
 using Volo.Abp.Modularity;
 using Volo.Abp.Uow;
 using Volo.Abp.Testing;
+using Volo.Abp.MultiTenancy;
 
 namespace HaoLife.Abp.Warehouse;
 
@@ -12,6 +13,11 @@ namespace HaoLife.Abp.Warehouse;
 public abstract class WarehouseTestBase<TStartupModule> : AbpIntegratedTest<TStartupModule>
     where TStartupModule : IAbpModule
 {
+    protected readonly ICurrentTenant CurrentTenant;
+    protected WarehouseTestBase()
+    {
+        this.CurrentTenant = GetRequiredService<ICurrentTenant>();
+    }
     protected override void SetAbpApplicationCreationOptions(AbpApplicationCreationOptions options)
     {
         options.UseAutofac();

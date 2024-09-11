@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HaoLife.Abp.Warehouse.Arriveds;
 using HaoLife.Abp.Warehouse.Cargos;
 using HaoLife.Abp.Warehouse.Stocks;
 using HaoLife.Abp.Warehouse.Storehouses;
@@ -62,6 +63,11 @@ public class WarehouseApplicationAutoMapperProfile : Profile
             .Ignore(a => a.Cargo)
             .MapExtraProperties();
 
+        CreateMap<ArrivedOrder, ArrivedOrderDto>()
+            .MapExtraProperties();
+
+        CreateMap<ArrivedOrderItem, ArrivedOrderItemDto>();
+        CreateMap<ArrivedOrderPickItem, ArrivedOrderPickItemDto>();
 
     }
 }

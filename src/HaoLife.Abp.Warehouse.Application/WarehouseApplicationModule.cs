@@ -20,5 +20,7 @@ public class WarehouseApplicationModule : AbpModule
         {
             options.AddMaps<WarehouseApplicationModule>(validate: true);
         });
+
     }
 }
+
