@@ -26,6 +26,11 @@ public class TestSeedContributor : IDataSeedContributor, ITransientDependency
 
     public async Task SeedAsync(DataSeedContext context)
     {
+        if (!context.Properties.ContainsKey("dev")
+            || (context.Properties["dev"] is bool isDev && isDev == false))
+            return;
+
+
         //var count = await this.cargoCategoryRepository.GetCountAsync();
         //if (count <= 0)
         //{

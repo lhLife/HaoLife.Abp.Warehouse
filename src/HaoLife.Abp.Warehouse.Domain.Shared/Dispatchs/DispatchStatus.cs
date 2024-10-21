@@ -16,17 +16,27 @@ public enum DispatchStatus
     /// <summary>
     /// 预发货
     /// </summary>
+    /// <remarks>
+    /// 新建发货单，生成要发货的货物和数量
+    /// </remarks>
     [Description("预发货")]
     PreDispatch = 0,
 
     /// <summary>
     /// 待发货
     /// </summary>
+    /// <remarks>
+    /// 确认发货单中发货的货物（待配货）（锁库存）
+    /// 从仓库中(库位)进行配货，列出配货的待选项，提供给用户确认，用户可以从待选项中选择其他仓库（库位）的货物进行配货
+    /// </remarks>
     [Description("待发货")]
     UnDispatch = 1,
     /// <summary>
     /// 待拣货
     /// </summary>
+    /// <remarks>
+    /// 确认配货明细（已配货）,确认用户已经确认选取的配货明细
+    /// </remarks>
     [Description("待拣货")]
     UnPicking = 2,
 

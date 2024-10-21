@@ -7,6 +7,6 @@ using Volo.Abp.Domain.Repositories;
 
 namespace HaoLife.Abp.Warehouse.Arriveds;
 
-public interface IArrivedOrderSortItemRepository : IRepository<ArrivedOrderPickItem, Guid>
+public interface IArrivedOrderPickItemRepository : IRepository<ArrivedOrderPickItem, Guid>
 {
 }

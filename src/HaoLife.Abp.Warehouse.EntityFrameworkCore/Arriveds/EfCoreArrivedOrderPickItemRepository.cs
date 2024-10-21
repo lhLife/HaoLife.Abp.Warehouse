@@ -9,10 +9,10 @@ using Volo.Abp.EntityFrameworkCore;
 
 namespace HaoLife.Abp.Warehouse.Arriveds;
 
-public class EfCoreArrivedOrderSortItemRepository : EfCoreRepository<WarehouseDbContext, ArrivedOrderPickItem, Guid>
-    , IArrivedOrderSortItemRepository
+public class EfCoreArrivedOrderPickItemRepository : EfCoreRepository<WarehouseDbContext, ArrivedOrderPickItem, Guid>
+    , IArrivedOrderPickItemRepository
 {
-    public EfCoreArrivedOrderSortItemRepository(IDbContextProvider<WarehouseDbContext> dbContextProvider) 
+    public EfCoreArrivedOrderPickItemRepository(IDbContextProvider<WarehouseDbContext> dbContextProvider) 
         : base(dbContextProvider)
     {
     }

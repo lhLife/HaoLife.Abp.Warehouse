@@ -48,6 +48,8 @@ using Volo.Abp.Features;
 using YamlDotNet.Core.Tokens;
 using Volo.Abp.Settings;
 using Volo.Abp.Guids;
+using Microsoft.EntityFrameworkCore.Storage;
+using Volo.Abp.TenantManagement;
 
 namespace HaoLife.Abp.Warehouse;
 
@@ -274,12 +276,20 @@ public class WarehouseHttpApiHostModule : AbpModule
     {
         await base.OnApplicationInitializationAsync(context);
 
+        //using (var scope = context.ServiceProvider.CreateScope())
+        //{
+        //    scope.ServiceProvider
+        //       .GetRequiredService<WarehouseDbContext>().Database.EnsureCreated();
+
+        //}
 
         using (var scope = context.ServiceProvider.CreateScope())
         {
             await scope.ServiceProvider
                 .GetRequiredService<IDataSeeder>()
-                .SeedAsync();
+                .SeedAsync(new DataSeedContext()
+                    .WithProperty("dev", context.GetEnvironment().IsDevelopment())
+                );
         }
     }
 }

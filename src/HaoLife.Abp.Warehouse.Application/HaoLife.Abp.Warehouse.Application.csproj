@@ -17,4 +17,8 @@
     <ProjectReference Include="..\HaoLife.Abp.Warehouse.Domain\HaoLife.Abp.Warehouse.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dispatchs\" />
+  </ItemGroup>
+
 </Project>
