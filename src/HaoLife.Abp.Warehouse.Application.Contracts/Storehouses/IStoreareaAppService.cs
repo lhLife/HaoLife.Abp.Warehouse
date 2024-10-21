@@ -7,6 +7,9 @@ using Volo.Abp.Application.Services;
 
 namespace HaoLife.Abp.Warehouse.Storehouses;
 
+/// <summary>
+/// 库区服务
+/// </summary>
 public interface IStoreareaAppService : IApplicationService
     , ICrudAppService<StoreareaDto, StoreareaDto, Guid, StoreareaSearchDto, StoreareaCreateDto, StoreareaCreateDto>
 {

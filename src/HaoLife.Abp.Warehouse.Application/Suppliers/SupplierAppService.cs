@@ -19,6 +19,9 @@ using Volo.Abp.GlobalFeatures;
 
 namespace HaoLife.Abp.Warehouse.Suppliers;
 
+/// <summary>
+/// 供应商服务
+/// </summary>
 //[RequiresFeature(WarehouseFeatures.SupplierEnable)]
 //[Authorize(WarehousePermissions.Supplier.Default)]
 //[RequiresGlobalFeature(typeof(SupplierFeature))]

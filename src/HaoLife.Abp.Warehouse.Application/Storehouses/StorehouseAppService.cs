@@ -18,6 +18,9 @@ using Volo.Abp.ObjectExtending;
 
 namespace HaoLife.Abp.Warehouse.Storehouses;
 
+/// <summary>
+/// 仓库服务
+/// </summary>
 //[RequiresFeature(WarehouseFeatures.StorehouseEnable)]
 //[Authorize(WarehousePermissions.Storehouse.Default)]
 //[RequiresGlobalFeature(typeof(StorehouseFeature))]

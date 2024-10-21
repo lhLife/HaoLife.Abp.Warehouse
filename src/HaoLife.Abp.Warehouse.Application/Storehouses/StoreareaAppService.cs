@@ -15,6 +15,9 @@ using Volo.Abp.ObjectMapping;
 
 namespace HaoLife.Abp.Warehouse.Storehouses;
 
+/// <summary>
+/// 库区服务
+/// </summary>
 //[RequiresFeature(WarehouseFeatures.StoreareaEnable)]
 //[Authorize(WarehousePermissions.Storearea.Default)]
 //[RequiresGlobalFeature(typeof(StorehouseFeature))]

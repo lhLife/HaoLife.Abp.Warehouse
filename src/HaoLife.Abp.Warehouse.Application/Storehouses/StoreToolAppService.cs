@@ -10,6 +10,9 @@ using Volo.Abp.ObjectExtending;
 
 namespace HaoLife.Abp.Warehouse.Storehouses;
 
+/// <summary>
+/// 存储工具服务
+/// </summary>
 public class StoreToolAppService : WarehouseAppService, IStoreToolAppService
 {
     private readonly IStoreToolRepository storeToolRepository;

@@ -30,6 +30,9 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HaoLife.Abp.Warehouse.Cargos;
 
+/// <summary>
+/// 货物服务
+/// </summary>
 //[RequiresFeature(WarehouseFeatures.CargoEnable)]
 //[Authorize(WarehousePermissions.Cargo.Default)]
 public class CargoAppService :

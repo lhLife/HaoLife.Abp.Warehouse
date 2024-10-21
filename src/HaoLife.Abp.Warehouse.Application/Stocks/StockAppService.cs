@@ -18,6 +18,9 @@ using Volo.Abp.ObjectMapping;
 
 namespace HaoLife.Abp.Warehouse.Stocks;
 
+/// <summary>
+/// 库存服务
+/// </summary>
 public class StockAppService : WarehouseAppService, IStockAppService
 {
     private readonly IStockRepository stockRepository;

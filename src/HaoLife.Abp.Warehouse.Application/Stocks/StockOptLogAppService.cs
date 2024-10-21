@@ -11,6 +11,9 @@ using Volo.Abp.ObjectMapping;
 
 namespace HaoLife.Abp.Warehouse.Stocks;
 
+/// <summary>
+/// 库存操作日志服务
+/// </summary>
 public class StockOptLogAppService : WarehouseAppService, IStockOptLogAppService
 {
     private readonly IStockOptLogRepository stockOptLogRepository;

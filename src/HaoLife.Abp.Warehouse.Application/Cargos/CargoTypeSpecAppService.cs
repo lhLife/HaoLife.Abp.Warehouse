@@ -17,6 +17,9 @@ using Volo.Abp.ObjectExtending;
 
 namespace HaoLife.Abp.Warehouse.Cargos;
 
+/// <summary>
+/// 货物类型规格服务
+/// </summary>
 //[RequiresFeature(WarehouseFeatures.CargoTypeSpecEnable)]
 //[Authorize(WarehousePermissions.CargoTypeSpec.Default)]
 //[RequiresGlobalFeature(typeof(CargoCategoryFeature))]

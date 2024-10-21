@@ -8,6 +8,9 @@ using Volo.Abp.Application.Services;
 
 namespace HaoLife.Abp.Warehouse.Suppliers;
 
+/// <summary>
+/// 供应商服务
+/// </summary>
 public interface ISupplierAppService : IApplicationService
     , ICrudAppService<SupplierDto, SupplierDto, Guid, SupplierSearchDto, SupplierCreateDto, SupplierCreateDto>
 {
